@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CareerAI — AI Resume & Career Assistant</title>
+<style>
+:root{--p:#5b5ce2;--p2:#7c3aed;--dark:#15172f;--bg:#f6f7fb;--card:#fff;--text:#182033;--muted:#697386;--line:#e6e8ef;--green:#16a34a;--red:#dc2626;--amber:#d97706}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}button,input,textarea,select{font:inherit}button{cursor:pointer}.hidden{display:none!important}
+header{height:72px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 5%;position:sticky;top:0;z-index:20}.brand{font-size:24px;font-weight:900;letter-spacing:-1px}.brand span{color:var(--p)}.header-actions{display:flex;gap:10px}
+.btn{border:0;border-radius:11px;padding:11px 17px;font-weight:800}.btn-primary{color:#fff;background:linear-gradient(135deg,var(--p),var(--p2));box-shadow:0 8px 20px #5b5ce233}.btn-light{background:#f0f1f7;color:var(--text)}
+.hero{padding:85px 7% 75px;background:linear-gradient(135deg,#16183a,#5b5ce2);color:white;display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:center}.hero h1{font-size:clamp(42px,6vw,76px);line-height:.98;letter-spacing:-4px;margin:15px 0 25px}.hero p{font-size:18px;line-height:1.7;color:#e8e9ff;max-width:650px}.hero-badge{display:inline-block;background:#ffffff18;border:1px solid #ffffff30;border-radius:999px;padding:8px 13px;font-size:12px;font-weight:800}.hero-card{background:#fff;color:var(--text);border-radius:25px;padding:25px;box-shadow:0 30px 80px #0003}.mini-score{display:flex;justify-content:space-between;align-items:center}.big-score{font-size:58px;font-weight:900;color:var(--p)}.bar{height:9px;background:#e9eaf1;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--p),var(--p2));border-radius:99px}.mini-tags{margin-top:18px}.tag{display:inline-block;background:#eef0ff;color:#4446b8;border-radius:999px;padding:6px 9px;font-size:12px;font-weight:800;margin:3px}.tag.red{background:#fff0f0;color:var(--red)}
+.section{padding:70px 7%;max-width:1400px;margin:auto}.section-title{text-align:center;max-width:750px;margin:0 auto 40px}.section-title h2{font-size:38px;margin:0 0 10px;letter-spacing:-1.5px}.section-title p{color:var(--muted);line-height:1.7}.features{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.feature,.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px}.feature-icon{width:44px;height:44px;border-radius:12px;background:#eef0ff;display:grid;place-items:center;color:var(--p);font-size:20px}.feature h3{margin-bottom:8px}.feature p{color:var(--muted);line-height:1.6}
+.app{display:none}.app.active{display:flex;min-height:100vh}.side{width:245px;background:var(--dark);color:#fff;position:fixed;inset:0 auto 0 0;padding:25px 15px;display:flex;flex-direction:column;z-index:30}.side .brand{padding:0 12px 35px}.side nav{display:grid;gap:6px}.nav{border:0;background:transparent;color:#abb1c8;text-align:left;padding:13px 14px;border-radius:10px}.nav:hover,.nav.active{background:#ffffff12;color:white}.logout{margin-top:auto;border:0;background:#ffffff0c;color:#fff;padding:12px;border-radius:10px}
+.main{margin-left:245px;width:calc(100% - 245px);padding:30px 4%;background:var(--bg)}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:30px}.eyebrow{font-size:11px;color:var(--p);font-weight:900;letter-spacing:1.5px;margin:0}.top h2{margin:4px 0}.user{background:#fff;border:1px solid var(--line);padding:9px 13px;border-radius:11px;font-weight:800}.page{max-width:1200px;margin:auto}.welcome{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}.welcome h1{font-size:32px;margin:0 0 5px}.muted{color:var(--muted)}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-bottom:20px}.stat{background:#fff;border:1px solid var(--line);padding:20px;border-radius:16px}.stat span{font-size:13px;color:var(--muted)}.stat strong{display:block;font-size:31px;margin-top:7px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}.steps{display:grid;gap:13px}.step{display:flex;align-items:center;gap:12px}.step b{width:38px;height:38px;background:#eef0ff;color:var(--p);display:grid;place-items:center;border-radius:10px;font-size:12px}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+label{display:block;font-size:13px;font-weight:800;color:#394255;margin:14px 0}input,textarea,select{width:100%;padding:13px 14px;margin-top:7px;border:1px solid var(--line);border-radius:11px;background:#fff;color:var(--text);outline:0}textarea{resize:vertical;line-height:1.6}input:focus,textarea:focus,select:focus{border-color:var(--p);box-shadow:0 0 0 3px #5b5ce21a}.upload{border:2px dashed #cfd2df;border-radius:15px;padding:25px;text-align:center;background:#fafaff}.upload input{border:0}.result{margin-top:18px}.scoregrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.scorebox{background:#fafaff;border:1px solid #e8e8f4;padding:18px;border-radius:15px}.scorebox strong{font-size:38px}.result-section{margin-top:22px}.result-section li{line-height:1.8}.question{padding:16px;border:1px solid var(--line);border-radius:12px;margin:10px 0;background:#fff}.history-item{display:flex;justify-content:space-between;align-items:center;padding:15px;border:1px solid var(--line);border-radius:12px;margin:9px 0;background:#fff}.empty{text-align:center;color:var(--muted);padding:30px}.auth-overlay{position:fixed;inset:0;background:#0008;display:none;align-items:center;justify-content:center;z-index:50;padding:20px}.auth-box{background:#fff;border-radius:20px;padding:30px;width:min(440px,100%);position:relative}.close{position:absolute;right:15px;top:12px;border:0;background:transparent;font-size:24px}.tabs{display:flex;background:#f1f2f7;padding:5px;border-radius:10px}.tab{flex:1;border:0;background:transparent;padding:10px;border-radius:8px}.tab.active{background:white;box-shadow:0 2px 8px #0001;font-weight:800}.toast{position:fixed;right:20px;bottom:20px;background:#15172f;color:#fff;padding:13px 17px;border-radius:11px;z-index:99;display:none}
+footer{padding:35px 7%;background:#15172f;color:#bfc3d6;text-align:center}.footer-brand{color:white;font-weight:900;font-size:20px}
+@media(max-width:900px){.hero{grid-template-columns:1fr}.features{grid-template-columns:1fr 1fr}.side{width:70px}.side .brand{font-size:0}.side .brand:before{content:"AI";font-size:22px}.nav{font-size:0;text-align:center}.main{margin-left:70px;width:calc(100% - 70px)}.stats{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){header{padding:0 4%}.header-actions .btn-light{display:none}.hero{padding:55px 5%}.hero h1{letter-spacing:-2px}.section{padding:50px 5%}.features,.grid2,.form-grid,.scoregrid{grid-template-columns:1fr}.main{padding:20px}.welcome{display:block}.welcome .btn{margin-top:15px}.stats{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<header id="landingHeader">
+  <div class="brand">Career<span>AI</span></div>
+  <div class="header-actions">
+    <button class="btn btn-light" onclick="openAuth('login')">Login</button>
+    <button class="btn btn-primary" onclick="openAuth('register')">Get Started</button>
+  </div>
+</header>
+
+<section id="landing">
+  <section class="hero">
+    <div>
+      <span class="hero-badge">AI-POWERED CAREER ASSISTANT</span>
+      <h1>Turn your resume into a career strategy.</h1>
+      <p>Analyze your resume against a target job, discover skill gaps, improve your resume, generate interview questions and build a personalized preparation roadmap.</p>
+      <button class="btn btn-primary" onclick="openAuth('register')">Analyze My Resume →</button>
+    </div>
+    <div class="hero-card">
+      <div class="mini-score"><div><b>Java Full Stack Developer</b><p class="muted">AI Job Match</p></div><div class="big-score">82%</div></div>
+      <div class="bar"><i style="width:82%"></i></div>
+      <h4>Matched Skills</h4>
+      <div class="mini-tags"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">React</span><span class="tag">SQL</span></div>
+      <h4>Skill Gaps</h4>
+      <div><span class="tag red">Docker</span><span class="tag red">AWS</span><span class="tag red">Kubernetes</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-title"><h2>Everything you need to prepare smarter</h2><p>One application for resume optimization, job matching and interview preparation.</p></div>
+    <div class="features">
+      <div class="feature"><div class="feature-icon">▣</div><h3>Resume Analysis</h3><p>Review your resume structure, keywords, skills and job relevance.</p></div>
+      <div class="feature"><div class="feature-icon">⌁</div><h3>Skill Gap Analysis</h3><p>Compare your skills with a target job and identify what you need to learn.</p></div>
+      <div class="feature"><div class="feature-icon">⚡</div><h3>Interview Preparation</h3><p>Generate technical, project and HR questions based on your target role.</p></div>
+      <div class="feature"><div class="feature-icon">↗</div><h3>Career Roadmap</h3><p>Get an ordered learning plan based on your current profile.</p></div>
+      <div class="feature"><div class="feature-icon">✓</div><h3>ATS Optimization</h3><p>Improve keywords and formatting so your resume is easier for ATS systems to process.</p></div>
+      <div class="feature"><div class="feature-icon">◎</div><h3>Progress History</h3><p>Keep previous job analyses so you can track your improvement.</p></div>
+    </div>
+  </section>
+</section>
+
+<section id="app" class="app">
+  <aside class="side">
+    <div class="brand">Career<span>AI</span></div>
+    <nav>
+      <button class="nav active" onclick="showPage('dashboard')">⌂ Dashboard</button>
+      <button class="nav" onclick="showPage('resume')">▣ Resume</button>
+      <button class="nav" onclick="showPage('job')">◈ Job Analysis</button>
+      <button class="nav" onclick="showPage('interview')">⚡ Interview</button>
+      <button class="nav" onclick="showPage('history')">◷ History</button>
+    </nav>
+    <button class="logout" onclick="logout()">Logout</button>
+  </aside>
+
+  <main class="main">
+    <div class="top"><div><p class="eyebrow">AI CAREER ASSISTANT</p><h2 id="pageTitle">Dashboard</h2></div><div class="user" id="userChip">User</div></div>
+
+    <div id="dashboardPage" class="page">
+      <div class="welcome"><div><h1>Hello, <span id="dashName">there</span> 👋</h1><p class="muted">Let's improve your career profile.</p></div><button class="btn btn-primary" onclick="showPage('job')">+ New Job Analysis</button></div>
+      <div class="stats">
+        <div class="stat"><span>Resumes</span><strong id="sResumes">0</strong></div>
+        <div class="stat"><span>Analyses</span><strong id="sAnalyses">0</strong></div>
+        <div class="stat"><span>Latest Match</span><strong id="sMatch">0%</strong></div>
+        <div class="stat"><span>ATS Score</span><strong id="sATS">0%</strong></div>
+      </div>
+      <div class="grid2">
+        <div class="card"><h3>How it works</h3><div class="steps"><div class="step"><b>01</b><span>Upload or paste your resume</span></div><div class="step"><b>02</b><span>Add your target job description</span></div><div class="step"><b>03</b><span>Analyze skills and keywords</span></div><div class="step"><b>04</b><span>Prepare using your roadmap</span></div></div></div>
+        <div class="card"><h3>Latest analysis</h3><div id="latest" class="empty">No analysis yet.</div></div>
+      </div>
+    </div>
+
+    <div id="resumePage" class="page hidden">
+      <div class="welcome"><div><h1>Your Resume</h1><p class="muted">Store your resume and analyze it against jobs.</p></div></div>
+      <div class="grid2">
+        <div class="card">
+          <h3>Upload / Paste Resume</h3>
+          <div class="upload"><p>📄 Choose PDF, DOCX or TXT</p><input type="file" id="resumeFile" accept=".pdf,.doc,.docx,.txt"></div>
+          <label>Resume text<textarea id="resumeText" rows="15" placeholder="Paste your resume text here. This single-file version analyzes text directly."></textarea></label>
+          <button class="btn btn-primary" onclick="saveResume()">Save Resume</button>
+        </div>
+        <div class="card"><h3>Saved resumes</h3><div id="resumeList"></div></div>
+      </div>
+    </div>
+
+    <div id="jobPage" class="page hidden">
+      <div class="welcome"><div><h1>Job Analysis</h1><p class="muted">Compare your resume with a target job.</p></div></div>
+      <div class="card">
+        <div class="form-grid"><label>Job title<input id="jobTitle" placeholder="Java Full Stack Developer"></label><label>Company<input id="jobCompany" placeholder="ABC Technologies"></label></div>
+        <label>Job description<textarea id="jobDescription" rows="13" placeholder="Paste the complete job description here..."></textarea></label>
+        <label>Select resume<select id="resumeSelect"></select></label>
+        <button class="btn btn-primary" onclick="analyze()">Analyze with AI</button>
+      </div>
+      <div id="result" class="result"></div>
+    </div>
+
+    <div id="interviewPage" class="page hidden">
+      <div class="welcome"><div><h1>Interview Preparation</h1><p class="muted">Practice questions generated from your latest analysis.</p></div></div>
+      <div id="interviewBox" class="card empty">Run a job analysis first.</div>
+    </div>
+
+    <div id="historyPage" class="page hidden">
+      <div class="welcome"><div><h1>Analysis History</h1><p class="muted">Your previous career analyses.</p></div></div>
+      <div class="card"><div id="historyList"></div></div>
+    </div>
+  </main>
+</section>
+
+<footer id="footer"><div class="footer-brand">CareerAI</div><p>AI Resume & Career Assistant • HTML + CSS + JavaScript single-file edition</p></footer>
+
+<div id="authOverlay" class="auth-overlay">
+  <div class="auth-box">
+    <button class="close" onclick="closeAuth()">×</button>
+    <div class="tabs"><button id="loginTab" class="tab active" onclick="switchAuth('login')">Login</button><button id="registerTab" class="tab" onclick="switchAuth('register')">Register</button></div>
+    <form id="loginForm" onsubmit="login(event)">
+      <h2>Welcome back</h2>
+      <label>Email<input type="email" id="loginEmail" required></label>
+      <label>Password<input type="password" id="loginPassword" required></label>
+      <button class="btn btn-primary" style="width:100%">Login</button>
+    </form>
+    <form id="registerForm" class="hidden" onsubmit="register(event)">
+      <h2>Create your account</h2>
+      <label>Name<input id="regName" required></label>
+      <label>Email<input type="email" id="regEmail" required></label>
+      <label>Target role<input id="regRole" placeholder="e.g. Software Developer"></label>
+      <label>Password<input type="password" id="regPassword" minlength="6" required></label>
+      <button class="btn btn-primary" style="width:100%">Create account</button>
+    </form>
+  </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+const KEY="careerAI_single_file_data";
+const SKILLS=["javascript","typescript","html","css","react","angular","vue","node.js","node","express","java","spring","spring boot","python","django","flask","fastapi","c","c++","sql","mysql","postgresql","mongodb","git","github","docker","kubernetes","aws","azure","gcp","rest api","rest","api","jwt","oauth","linux","redis","kafka","microservices","machine learning","deep learning","nlp","scikit-learn","tensorflow","pytorch","pandas","numpy","data structures","algorithms","oop","dbms","computer networks","operating systems"];
+const STOP=new Set(["the","and","for","with","that","this","from","have","will","your","you","are","our","their","into","using","use","job","role","work","years","year","skills","experience","developer","development","team","strong","good","looking","must","should","about","they","them","who","has","been","can","not","all","but","also","as","of","to","in","on","a","an","is","be","or","we","it","at","by"]);
+let db=JSON.parse(localStorage.getItem(KEY)||"null")||{user:null,resumes:[],analyses:[]};
+let latest=null;
+
+function persist(){localStorage.setItem(KEY,JSON.stringify(db))}
+function toast(x){let t=document.getElementById("toast");t.textContent=x;t.style.display="block";setTimeout(()=>t.style.display="none",2500)}
+function esc(x){return String(x??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function norm(x){return String(x||"").toLowerCase().replace(/[^\w+#.]+/g," ")}
+function skills(text){let t=norm(text);return SKILLS.filter(s=>t.includes(s))}
+function words(text){let a=norm(text).split(/\s+/).filter(x=>x.length>=4&&!STOP.has(x));let c={};a.forEach(x=>c[x]=(c[x]||0)+1);return Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,25).map(x=>x[0])}
+
+function openAuth(type){document.getElementById("authOverlay").style.display="flex";switchAuth(type)}
+function closeAuth(){document.getElementById("authOverlay").style.display="none"}
+function switchAuth(type){document.getElementById("loginForm").classList.toggle("hidden",type!=="login");document.getElementById("registerForm").classList.toggle("hidden",type!=="register");document.getElementById("loginTab").classList.toggle("active",type==="login");document.getElementById("registerTab").classList.toggle("active",type==="register")}
+function login(e){e.preventDefault();let email=loginEmail.value.trim().toLowerCase();let pass=loginPassword.value;if(!db.user||db.user.email!==email||db.user.password!==pass)return toast("Invalid email or password");enterApp()}
+function register(e){e.preventDefault();db.user={name:regName.value.trim(),email:regEmail.value.trim().toLowerCase(),password:regPassword.value,targetRole:regRole.value.trim()};db.resumes=[];db.analyses=[];persist();enterApp()}
+function enterApp(){closeAuth();document.getElementById("landing").style.display="none";document.getElementById("landingHeader").style.display="none";document.getElementById("footer").style.display="none";document.getElementById("app").classList.add("active");document.getElementById("userChip").textContent=db.user.name;document.getElementById("dashName").textContent=db.user.name.split(" ")[0];showPage("dashboard")}
+function logout(){db.user=null;persist();location.reload()}
+
+function showPage(page){
+  ["dashboard","resume","job","interview","history"].forEach(x=>document.getElementById(x+"Page").classList.add("hidden"));
+  document.getElementById(page+"Page").classList.remove("hidden");
+  document.querySelectorAll(".nav").forEach(x=>x.classList.remove("active"));
+  let index={dashboard:0,resume:1,job:2,interview:3,history:4}[page];if(index!==undefined)document.querySelectorAll(".nav")[index].classList.add("active");
+  document.getElementById("pageTitle").textContent=page==="job"?"Job Analysis":page[0].toUpperCase()+page.slice(1);
+  if(page==="dashboard")dashboard();if(page==="resume")loadResumes();if(page==="job")loadResumes();if(page==="history")history();if(page==="interview")renderInterview();
+}
+function dashboard(){document.getElementById("sResumes").textContent=db.resumes.length;document.getElementById("sAnalyses").textContent=db.analyses.length;let a=db.analyses[0];document.getElementById("sMatch").textContent=a?a.match+"%":"0%";document.getElementById("sATS").textContent=a?a.ats+"%":"0%";document.getElementById("latest").innerHTML=a?`<b>${esc(a.title)}</b><br><span class="muted">${esc(a.company)}</span><br><br>Match <b>${a.match}%</b> · ATS <b>${a.ats}%</b>`:"No analysis yet."}
+function saveResume(){let text=document.getElementById("resumeText").value.trim(),file=document.getElementById("resumeFile").files[0];if(!text)return toast("Paste your resume text for this single-file version");db.resumes.unshift({id:Date.now(),name:file?file.name:"resume.txt",text,created:new Date().toISOString()});persist();document.getElementById("resumeText").value="";document.getElementById("resumeFile").value="";toast("Resume saved");loadResumes()}
+function loadResumes(){document.getElementById("resumeList").innerHTML=db.resumes.length?db.resumes.map(r=>`<div class="history-item"><div><b>${esc(r.name)}</b><div class="muted">${new Date(r.created).toLocaleString()}</div></div></div>`).join(""):`<div class="empty">No resumes saved.</div>`;document.getElementById("resumeSelect").innerHTML=db.resumes.length?db.resumes.map(r=>`<option value="${r.id}">${esc(r.name)}</option>`).join(""):`<option value="">Save a resume first</option>`}
+
+function analyze(){
+  let resume=db.resumes.find(r=>r.id==document.getElementById("resumeSelect").value),job=document.getElementById("jobDescription").value.trim(),title=document.getElementById("jobTitle").value.trim(),company=document.getElementById("jobCompany").value.trim();
+  if(!resume)return toast("Please save a resume first");if(!job||!title)return toast("Enter job title and description");
+  let rs=skills(resume.text),js=skills(job),matched=js.filter(x=>rs.includes(x)),missing=js.filter(x=>!rs.includes(x));
+  let ss=js.length?Math.round(matched.length/js.length*100):0,kw=words(job),hits=kw.filter(x=>norm(resume.text).includes(x)),ks=kw.length?Math.round(hits.length/kw.length*100):50,ats=Math.min(100,Math.round(ss*.65+ks*.35)),match=Math.min(100,Math.round(ss*.75+ks*.25));
+  let suggestions=[];if(missing.length)suggestions.push("Add evidence or projects demonstrating: "+missing.join(", ")+".");if(ks<70)suggestions.push("Naturally include important job-description keywords in Skills, Projects and Experience.");if(!/project/i.test(resume.text))suggestions.push("Add 2–3 projects with technologies, responsibilities and measurable outcomes.");suggestions.push("Use achievement-oriented bullets: action + technology + result.");suggestions.push("Keep formatting simple and ATS-friendly.");
+  let questions=[`Explain your experience with ${matched[0]||"the main technologies in this role"}.`,`How would you design a production-ready application for this role?`,`Describe a project where you solved a difficult technical problem.`,`How do you test, debug and improve your code?`,`What would you learn next to become stronger for this job?`];
+  let roadmap=[{p:"Immediate",x:missing.slice(0,3).length?missing.slice(0,3):["Strengthen core skills"]},{p:"Next 2 weeks",x:["Build one job-relevant project","Improve resume bullets"]},{p:"Interview",x:["Practice technical questions","Prepare project explanations","Practice HR answers"]}];
+  latest={id:Date.now(),title,company,match,ats,matched,missing,suggestions,questions,roadmap,created:new Date().toISOString()};db.analyses.unshift(latest);persist();renderResult(latest);toast("Analysis completed")}
+function renderResult(a){document.getElementById("result").innerHTML=`<div class="card"><h2>AI Career Analysis</h2><p class="muted">${esc(a.title)} ${a.company?"· "+esc(a.company):""}</p><div class="scoregrid"><div class="scorebox">Job Match<br><strong>${a.match}%</strong><div class="bar"><i style="width:${a.match}%"></i></div></div><div class="scorebox">ATS Score<br><strong>${a.ats}%</strong><div class="bar"><i style="width:${a.ats}%"></i></div></div></div><div class="result-section"><h3>Matched Skills</h3>${a.matched.length?a.matched.map(x=>`<span class="tag">${esc(x)}</span>`).join(""):"<span class='muted'>No strong matches detected.</span>"}</div><div class="result-section"><h3>Skill Gaps</h3>${a.missing.length?a.missing.map(x=>`<span class="tag red">${esc(x)}</span>`).join(""):"<span class='muted'>No skill gaps detected.</span>"}</div><div class="result-section"><h3>Resume Improvements</h3><ul>${a.suggestions.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div><div class="result-section"><h3>Career Roadmap</h3>${a.roadmap.map(x=>`<div class="question"><b>${esc(x.p)}</b><ul>${x.x.map(y=>`<li>${esc(y)}</li>`).join("")}</ul></div>`).join("")}</div><button class="btn btn-primary" onclick="showPage('interview')">Practice Interview →</button></div>`}
+function renderInterview(){document.getElementById("interviewBox").innerHTML=latest?`<h2>Interview Questions</h2>${latest.questions.map((q,i)=>`<div class="question"><b>Question ${i+1}</b><p>${esc(q)}</p><textarea rows="4" placeholder="Write your answer here..."></textarea></div>`).join("")}`:"Run a job analysis first."}
+function history(){document.getElementById("historyList").innerHTML=db.analyses.length?db.analyses.map(a=>`<div class="history-item"><div><b>${esc(a.title)}</b><div class="muted">${esc(a.company)} · ${new Date(a.created).toLocaleString()}</div></div><b>${a.match}% match</b></div>`).join(""):`<div class="empty">No analyses yet.</div>`}
+
+if(db.user)enterApp();
+</script>
+</body>
+</html>
